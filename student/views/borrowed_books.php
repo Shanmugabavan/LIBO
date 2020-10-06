@@ -15,8 +15,9 @@ if (isset($_GET['logout'])) {
 include $_SERVER['DOCUMENT_ROOT'] . '/classes/book.php';
 $id=$student->getId();
 
-$sql = "SELECT * FROM `borrowed_books` WHERE `user_id`='$id' ORDER BY `borrowed_date` DESC ;";
+$sql = "SELECT * FROM `borrowed_books` WHERE `user_id`='$id' AND `isReturned`='No' ORDER BY `borrowed_date` DESC  ;";
 $array = mysqli_query($connection, $sql);
+
 
 ?>
 
@@ -49,23 +50,18 @@ $array = mysqli_query($connection, $sql);
                                         <th>Due_date</th>
                                         </thead>
                                         <tbody>
-
-                                        <tr>
-                                            <?php while ($m = mysqli_fetch_array($array)) :
+                                        <?php while ($m = mysqli_fetch_array($array)) {
                                             $sql_for_get = "SELECT * FROM `books_details` WHERE id = '$m[book_id]'";
-                                            $array = mysqli_query($connection, $sql_for_get);
-                                            $sql_for_book = mysqli_fetch_array($array);
+                                            $arrayy = mysqli_query($connection, $sql_for_get);
+                                            $sql_for_book = mysqli_fetch_array($arrayy);
 
                                             ?>
-
-                                            <td><?php echo  $sql_for_book['title'] ?></td>
-                                            <td><?php echo date('d/m/Y', $m[3]) ?></td>
-                                            <td><?php echo date('d/m/Y', $m[4]) ?></td>
-
-                                            </td>
-
-                                        </tr>
-                                        <?php endwhile; ?>
+                                            <tr>
+                                                <td><?php echo  $sql_for_book['title'] ?></td>
+                                                <td><?php echo date('d/m/Y', $m[3]) ?></td>
+                                                <td><?php echo date('d/m/Y', $m[4]) ?></td>
+                                            </tr>
+                                        <?php } ?>
 
 
                                         </tbody>

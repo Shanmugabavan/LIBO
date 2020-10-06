@@ -7,7 +7,7 @@
 class Connector{
     private static $server = "localhost";
     private static $username ="root";
-    private static $password = "";
+    private static $password = "Shanmu@25621";
     private static $db = "l";
 
     private static $connection=null;

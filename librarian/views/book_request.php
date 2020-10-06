@@ -54,6 +54,7 @@ if (isset($_GET['logout'])) {
                                     <th>Book Name</th>
                                     <th>Requested date</th>
                                     <th>Issue</th>
+                                    <th>Cancel</th>
 
                                 </thead>
                                 <tbody>
@@ -73,6 +74,12 @@ if (isset($_GET['logout'])) {
                                             <td>
                                                 <form method="post">
                                                     <input type="submit" class="btn btn-success" value="Issue" name="Issue"></input>
+
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form method="post">
+                                                    <input type="submit" class="btn btn-danger" value="Cancel" name="Cancel"></input>
 
                                                 </form>
                                             </td>
@@ -98,6 +105,9 @@ if (isset($_GET['logout'])) {
                 $sql = "UPDATE `requested_books` SET `isIssued`='Yes' WHERE (`book_id`=$_POST[book_id] AND `user_id`=$_POST[user_id]);";
                 mysqli_query($connection, $sql);
                 $librarian->issueBook($_POST);
+            }
+            if (isset($_POST['Cancel'])){
+                $librarian->requested_list($_POST['book_id']);
             }
 
             include 'footer.php';
